@@ -4,5 +4,6 @@ gem "sinatra"
 
 group :test do
   gem "cucumber"
-  gem "rack-test"
+  gem "capybara-webkit"
+  gem "rspec"
 end

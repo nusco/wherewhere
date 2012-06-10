@@ -1,1 +1,1 @@
-web: bundle exec ruby lib/wherewhere.rb -p $PORT
+web: bundle exec rackup config.ru -p $PORT -p $PORT
