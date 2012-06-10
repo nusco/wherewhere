@@ -10,7 +10,7 @@ end
 
 Then /^I should see a mark at (\d+)\.(\d+)°, (\d+)\.(\d+)°$/ do |arg1, arg2, arg3, arg4|
   # TODO
-  page.should have_content("q=44.6668250%C2%B0,+011.4927306%C2%B0")
+  page.html.should match(/q\=44\.6668250\,\+011\.4927306/)
 end
 
 Then /^I should see "(.*?)"$/ do |text|

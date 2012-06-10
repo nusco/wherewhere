@@ -1,4 +1,4 @@
-SITE = ENV['SITE'] || "localhost:5000"
+SITE = ENV['SITE'] || "localhost:9292"
 
 require 'capybara/cucumber'
 require 'capybara-webkit'
