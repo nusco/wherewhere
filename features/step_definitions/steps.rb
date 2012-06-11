@@ -1,7 +1,10 @@
 # encoding: utf-8
 
-Given /^somebody named "(.*?)" sends location (\d+)\.(\d+)°, (\d+)\.(\d+)°$/ do |arg1, arg2, arg3, arg4, arg5|
-  # TODO
+#TODO: start/stop server before/after each test
+
+Given /^somebody named "(.*?)" is at ([\d\.]+)°, ([\d\.]+)°$/ do |name, lat, long|
+  require 'rest_client'
+  RestClient.put "http://#{SITE}\/#{name}", {:lat => lat, :long => long}
 end
 
 When /^I open "http:\/\/wherewhere\.is\/(.*?)"$/ do |name|
