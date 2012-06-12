@@ -1,15 +1,18 @@
 require 'sinatra'
+require 'json'
 
 class WhereWhere < Sinatra::Base
 
-  TRACKED_USERS = {}
+  USERS = {}
 
   get '/:name' do
-    return "WhereWhere doesn't know where #{params[:name]} is" unless TRACKED_USERS[params[:name].downcase]
-    erb :location
+    location = USERS[params[:name].downcase]
+    return "WhereWhere doesn't know where #{params[:name]} is" unless location
+    erb :location, :locals => {:location => location}
   end
 
-  put '/:name' do |data|
-    TRACKED_USERS[params[:name].downcase] = data
+  put '/:name' do
+    USERS[params[:name].downcase] = JSON.parse request.body.read
+    200
   end
 end
