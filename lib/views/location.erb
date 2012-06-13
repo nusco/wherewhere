@@ -5,11 +5,6 @@
   <title></title>
   <body>
     <h3>WhereWhere is <%= params[:name] %>?</h3>
-    <iframe width="425" height="350" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp; q=<%= location["lat"] %>,<%= location["long"] %>"></iframe>
-    <br />
-    <small>
-      <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;
-      q=<%= location["lat"] %>,<%= location["long"] %>">View Larger Map</a>
-    </small>
+<iframe width="640" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=<%= location["lat"] %>,<%= location["long"] %>&amp;ie=UTF8&amp;t=m&amp;z=14&amp;output=embed"></iframe>
   </body>
 </html>

@@ -16,6 +16,6 @@ When I open "http://wherewhere.is/NuScO"
 Then I should see "WhereWhere is NuScO?"
 Then I should see a mark at 44.6668250°, 11.4927306°
 
-Scenario: Location failure
+Scenario: Fail locating
 When I open "http://wherewhere.is/unknown_person"
 Then I should see "WhereWhere doesn't know where unknown_person is"
