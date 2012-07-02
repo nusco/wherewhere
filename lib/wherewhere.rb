@@ -2,7 +2,6 @@ require 'sinatra'
 require 'json'
 
 class WhereWhere < Sinatra::Base
-
   USERS = {}
 
   get '/:name' do
