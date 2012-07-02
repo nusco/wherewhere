@@ -8,6 +8,14 @@ Given /^somebody named "(.*?)" is at ([\d\.]+)°, ([\d\.]+)°$/ do |name, lat, l
   RestClient.put "http://#{SITE}\/#{name}", location.to_json
 end
 
+Given /^it's (\d+):(\d+)pm$/ do |hours, minutes|
+  pending # express the regexp above with the code you wish you had
+end
+
+When /^it is (\d+):(\d+)pm$/ do |hours, minutes|
+  pending # express the regexp above with the code you wish you had
+end
+
 When /^I open "http:\/\/wherewhere\.is\/(.*?)"$/ do |name|
   visit "http://#{SITE}\/#{name}"
 end
