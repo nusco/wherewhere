@@ -9,7 +9,7 @@ namespace :features do
   end
 
   Cucumber::Rake::Task.new(:production) do |task|
-    task.cucumber_opts = ["--tags ~@backlog SITE=wherewhere.herokuapp.com"]
+    task.cucumber_opts = ["--tags ~@backlog SITE=tellme.wherewhere.is"]
   end
 
   Cucumber::Rake::Task.new(:backlog) do |task|
