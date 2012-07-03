@@ -1,14 +1,20 @@
 require 'sinatra'
 require 'json'
 
-MONGO_URL = ENV['MONGOHQ_URL'] || 'localhost'
-
 class WhereWhere < Sinatra::Base
   configure do
     require 'mongo'
-    conn = Mongo::Connection.new(MONGO_URL)
+    if(ENV['MONGOHQ_URL'])
+      require 'uri'
+      uri = URI.parse(ENV['MONGOHQ_URL'])
+      conn = Mongo::Connection.from_uri(ENV['MONGOHQ_URL'])
+      db = conn.db(uri.path.gsub(/^\//, ''))
+    else
+      conn = Mongo::Connection.new('localhost')
+      db = conn.db('wherewhere')
+    end
     set :mongo_connection, conn
-    set :mongo_db,         conn.db('wherewhere')
+    set :mongo_db,         db
   end
   
   # now see http://recipes.sinatrarb.com/p/databases/mongo
