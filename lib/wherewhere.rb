@@ -1,10 +1,12 @@
 require 'sinatra'
 require 'json'
 
+MONGO_URL = ENV['MONGOHQ_URL'] || 'localhost'
+
 class WhereWhere < Sinatra::Base
   configure do
     require 'mongo'
-    conn = Mongo::Connection.new("localhost", 27017)
+    conn = Mongo::Connection.new(MONGO_URL)
     set :mongo_connection, conn
     set :mongo_db,         conn.db('wherewhere')
   end
@@ -13,13 +15,13 @@ class WhereWhere < Sinatra::Base
   
   get '/:name' do
     name = params[:name].downcase
+    # TODO: get latest one
     data = settings.mongo_db['locations'].find_one(:name => name)
     return [404, {}, "WhereWhere doesn't know where #{name} is"] unless data
     erb :location, :locals => {:name => name, :lat => data["lat"], :long => data["long"]}
   end
 
   put '/:name' do
-    # TODO: check for name existing and update
     data = {:name => params[:name], :lat => params[:lat], :long => params[:long]}
     settings.mongo_db['locations'].insert data
   end
