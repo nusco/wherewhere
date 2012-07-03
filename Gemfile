@@ -3,7 +3,6 @@ source :rubygems
 gem "sinatra"
 gem "mongo"
 gem "bson_ext"
-gem "timecop"
 gem "thin"
 
 group :development do
@@ -15,4 +14,5 @@ group :test do
   gem "capybara-webkit"
   gem "rspec"
   gem "rest-client"
+  gem "timecop"
 end
