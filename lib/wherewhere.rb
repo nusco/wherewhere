@@ -38,6 +38,8 @@ class WhereWhere < Sinatra::Base
     else
       locations.insert data
     end
+
+    200
   end
   
   # TODO: remove in production!
