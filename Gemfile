@@ -4,10 +4,10 @@ gem "sinatra"
 gem "mongo"
 gem "bson_ext"
 gem "timecop"
+gem "thin"
 
 group :development do
   gem "rake"
-  gem "thin"
 end
 
 group :test do
