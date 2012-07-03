@@ -10,6 +10,11 @@ Given /^somebody named "(.*?)" is at ([\d\.]+)°, ([\d\.]+)°$/ do |name, lat, l
   RestClient.put "http://#{SITE}\/#{name}", {:lat => lat, :long => long}
 end
 
+Given /^a second later "(.*?)" is at ([\d\.]+)°, ([\d\.]+)°$/ do |name, lat, long|
+  fail "I cannot expect the order to be maintained - I should enforce it"
+  RestClient.put "http://#{SITE}\/#{name}", {:lat => lat, :long => long}
+end
+
 Given /^it's (\d+):(\d+)pm$/ do |hours, minutes|
   pending # express the regexp above with the code you wish you had
 end

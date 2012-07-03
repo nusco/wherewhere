@@ -15,8 +15,6 @@ class WhereWhere < Sinatra::Base
     set :mongo_db,         db
   end
   
-  # now see http://recipes.sinatrarb.com/p/databases/mongo
-  
   get '/:name' do
     name = params[:name].downcase
     # TODO: get latest one
