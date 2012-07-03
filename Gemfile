@@ -1,6 +1,8 @@
 source :rubygems
 
 gem "sinatra"
+gem "mongo"
+gem "bson_ext"
 
 group :development do
   gem "rake"
