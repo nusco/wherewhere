@@ -10,6 +10,12 @@ When I open "http://wherewhere.is/nusco"
 Then I should see "nusco is here:"
 And I should see a mark at 44.6668250°, 11.4927306°
 
+Scenario: Locate someone who sent multiple updates
+Given somebody named "nusco" is at 44.6668250°, 11.4927306°
+And a second later "nusco" is at 45.6668250°, 12.4927306°
+When I open "http://wherewhere.is/nusco"
+And I should see a mark at 45.6668250°, 12.4927306°
+
 Scenario: Locate with random case
 Given somebody named "nusco" is at 44.6668250°, 11.4927306°
 When I open "http://wherewhere.is/NuScO"
