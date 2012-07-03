@@ -1,11 +1,13 @@
 # encoding: utf-8
 
+Before do
+  require 'rest_client'
+  RestClient.delete "http://#{SITE}\/"
+end
+
 #TODO: start/stop server before/after each test
 Given /^somebody named "(.*?)" is at ([\d\.]+)°, ([\d\.]+)°$/ do |name, lat, long|
-  require 'rest_client'
-  require 'json'
-  location = {:lat => lat, :long => long}
-  RestClient.put "http://#{SITE}\/#{name}", location.to_json
+  RestClient.put "http://#{SITE}\/#{name}", {:lat => lat, :long => long}
 end
 
 Given /^it's (\d+):(\d+)pm$/ do |hours, minutes|

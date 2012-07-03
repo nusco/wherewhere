@@ -10,30 +10,24 @@ class WhereWhere < Sinatra::Base
   end
   
   # now see http://recipes.sinatrarb.com/p/databases/mongo
-  helpers do
-    def object_id val
-      BSON::ObjectId.from_string(val)
-    end
-
-    def document_by_id id
-      id = object_id(id) if String === id
-      settings.mongo_db['wherewhere'].find_one(:_id => id).to_json
-    end
-  end
-  # remove the crud above ASAP
   
   get '/:name' do
-    content_type :json
-    location = settings.mongo_db['wherewhere'].find_one(:name => name).to_json
-    return [404, {}, "WhereWhere doesn't know where #{user} is"] unless location
-    user = location[:user].downcase
-    erb :location, :locals => {:user => user, :location => location}
+    name = params[:name].downcase
+    data = settings.mongo_db['locations'].find_one(:name => name)
+    return [404, {}, "WhereWhere doesn't know where #{name} is"] unless data
+    erb :location, :locals => {:name => name, :lat => data[:lat], :long => data[:long]}
   end
 
   put '/:name' do
-    content_type :json
-    puts params
-    settings.mongo_db['wherewhere'].insert params
+    # TODO: check for name existing and update
+    data = {:name => params[:name], :lat => params[:lat], :long => params[:long]}
+    settings.mongo_db['locations'].insert data
+    puts data
     200
+  end
+  
+  # TODO: remove in production!
+  delete '/' do
+    settings.mongo_db['locations'].remove
   end
 end
