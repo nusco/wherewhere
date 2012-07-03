@@ -1,5 +1,3 @@
-SITE = ENV['SITE'] || "localhost:9292"
-
 require 'capybara/cucumber'
 require 'capybara-webkit'
 # this silences the Webkit JS warnings by redirecting them to nil:

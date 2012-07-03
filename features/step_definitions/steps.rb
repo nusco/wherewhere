@@ -1,5 +1,7 @@
 # encoding: utf-8
 
+SITE = ENV['SITE'] || "localhost:9292"
+
 Before do
   require 'rest_client'
   RestClient.delete "http://#{SITE}\/"
@@ -11,7 +13,6 @@ Given /^somebody named "(.*?)" is at ([\d\.]+)°, ([\d\.]+)°$/ do |name, lat, l
 end
 
 Given /^a second later "(.*?)" is at ([\d\.]+)°, ([\d\.]+)°$/ do |name, lat, long|
-  fail "I cannot expect the order to be maintained - I should enforce it"
   RestClient.put "http://#{SITE}\/#{name}", {:lat => lat, :long => long}
 end
 
