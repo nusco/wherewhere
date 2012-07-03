@@ -25,12 +25,15 @@ class WhereWhere < Sinatra::Base
     name = params[:name].downcase
     data = locations.find_one(:name => name)
     return [404, {}, "WhereWhere doesn't know where #{name} is"] unless data
-    erb :location, :locals => {:name => name, :lat => data["lat"], :long => data["long"]}
+    puts data['time'].class
+    age = Time.now - data['time']
+    puts '>>>>', age, age.class, '>>>>'
+    erb :location, :locals => {:data => data, :age => age}
   end
 
   put '/:name' do
     name = params[:name].downcase
-    data = {:name => name, :lat => params[:lat], :long => params[:long]}
+    data = {:name => name, :lat => params[:lat], :long => params[:long], :time => Time.now}
 
     existing = locations.find_one(:name => name)
     if existing
@@ -43,7 +46,14 @@ class WhereWhere < Sinatra::Base
   end
   
   # TODO: remove in production!
+
   delete '/' do
     locations.remove
+  end
+
+  put '/time' do
+    hours, minutes = params[:hours].to_i, params[:minutes].to_i
+    require 'timecop'
+    Timecop.freeze Time.local(2012, 9, 1, hours, minutes)
   end
 end

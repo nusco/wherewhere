@@ -14,4 +14,5 @@ group :test do
   gem "capybara-webkit"
   gem "rspec"
   gem "rest-client"
+  gem "timecop"
 end
