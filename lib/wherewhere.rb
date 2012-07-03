@@ -15,15 +15,13 @@ class WhereWhere < Sinatra::Base
     name = params[:name].downcase
     data = settings.mongo_db['locations'].find_one(:name => name)
     return [404, {}, "WhereWhere doesn't know where #{name} is"] unless data
-    erb :location, :locals => {:name => name, :lat => data[:lat], :long => data[:long]}
+    erb :location, :locals => {:name => name, :lat => data["lat"], :long => data["long"]}
   end
 
   put '/:name' do
     # TODO: check for name existing and update
     data = {:name => params[:name], :lat => params[:lat], :long => params[:long]}
     settings.mongo_db['locations'].insert data
-    puts data
-    200
   end
   
   # TODO: remove in production!
