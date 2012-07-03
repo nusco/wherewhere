@@ -19,29 +19,30 @@ class WhereWhere < Sinatra::Base
     def locations
       settings.mongo_db['locations']
     end
+    
+    def four_o_four
+      [404, {}, "WhereWhere doesn't know where #{params[:name].downcase} is"]
+    end
   end
   
   get '/:name' do
     name = params[:name].downcase
     data = locations.find_one(:name => name)
-    return [404, {}, "WhereWhere doesn't know where #{name} is"] unless data
-    puts data['time'].class
-    age = Time.now - data['time']
-    puts '>>>>', age, age.class, '>>>>'
-    erb :location, :locals => {:data => data, :age => age}
+    return four_o_four unless data
+    age_mins = ((Time.now - data['time']) / 60).round
+    return four_o_four if age_mins >= 60
+    erb :location, :locals => { :data => data, :age_mins => age_mins }
   end
 
   put '/:name' do
     name = params[:name].downcase
     data = {:name => name, :lat => params[:lat], :long => params[:long], :time => Time.now}
-
     existing = locations.find_one(:name => name)
     if existing
       locations.update({:_id => existing['id']}, data)
     else
       locations.insert data
     end
-
     200
   end
   
@@ -51,9 +52,10 @@ class WhereWhere < Sinatra::Base
     locations.remove
   end
 
-  put '/time' do
-    hours, minutes = params[:hours].to_i, params[:minutes].to_i
+  # TODO: now understand why the heck this doesn't work with a PUT
+  post '/time' do
     require 'timecop'
-    Timecop.freeze Time.local(2012, 9, 1, hours, minutes)
+    Timecop.freeze Time.local(2010, 9, 1, params[:hours].to_i, params[:minutes].to_i)
+    200
   end
 end
