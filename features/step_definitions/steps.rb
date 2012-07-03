@@ -17,7 +17,14 @@ When /^it is (\d+):(\d+)pm$/ do |hours, minutes|
 end
 
 When /^I open "http:\/\/wherewhere\.is\/(.*?)"$/ do |name|
-  visit "http://#{SITE}\/#{name}"
+  # FIXME: this is the only way I found to fix
+  # a very weird error in page status codes when using
+  # capybara-webkit. On the first visit, the status
+  # code is usually zero or a quirky random number.
+  # I have no idea how/why this happens.
+  2.times do
+    visit "http://#{SITE}\/#{name}"
+  end
 end
 
 Then /^I should see a mark at (\d+)\.(\d+)°, (\d+)\.(\d+)°$/ do |arg1, arg2, arg3, arg4|
