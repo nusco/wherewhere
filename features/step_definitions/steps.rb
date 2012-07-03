@@ -28,3 +28,7 @@ end
 Then /^I should see "(.*?)"$/ do |text|
   page.should have_content(text)
 end
+
+Then /^I should get a (\d+) response$/ do |status|
+  page.status_code.should == status.to_i
+end

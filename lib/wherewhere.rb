@@ -5,9 +5,10 @@ class WhereWhere < Sinatra::Base
   USERS = {}
 
   get '/:name' do
-    location = USERS[params[:name].downcase]
-    return "WhereWhere doesn't know where #{params[:name]} is" unless location
-    erb :location, :locals => {:location => location}
+    user = params[:name].downcase
+    location = USERS[user]
+    return [404, {}, "WhereWhere doesn't know where #{user} is"] unless location
+    erb :location, :locals => {:user => user, :location => location}
   end
 
   put '/:name' do
