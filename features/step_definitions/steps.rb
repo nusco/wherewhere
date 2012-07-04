@@ -28,9 +28,8 @@ When /^I open "http:\/\/wherewhere\.is\/(.*?)"$/ do |name|
   end
 end
 
-Then /^I should see a mark at (\d+)\.(\d+)°, (\d+)\.(\d+)°$/ do |arg1, arg2, arg3, arg4|
-  # TODO
-  page.html.should match(/q=44\.6668250,11\.4927306/)
+Then /^I should see a mark at ([\d\.]+)°, ([\d\.]+)°$/ do |lat, long|
+  page.html.should match("q=#{lat},#{long}")
 end
 
 Then /^I should see "(.*?)"$/ do |text|
