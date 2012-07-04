@@ -1,23 +1,21 @@
 # encoding: utf-8
 
-SITE = ENV['SITE'] || "localhost:9292"
-
 Before do
   require 'rest_client'
-  RestClient.delete "http://#{SITE}\/"
+  RestClient.delete "http://localhost:4567/database"
 end
 
 #TODO: start/stop server before/after each test
 Given /^somebody named "(.*?)" is at ([\d\.]+)°, ([\d\.]+)°$/ do |name, lat, long|
-  RestClient.put "http://#{SITE}\/#{name}", {:lat => lat, :long => long}
+  RestClient.put "http://localhost:4567/#{name}", {:lat => lat, :long => long}
 end
 
 Given /^a second later "(.*?)" is at ([\d\.]+)°, ([\d\.]+)°$/ do |name, lat, long|
-  RestClient.put "http://#{SITE}\/#{name}", {:lat => lat, :long => long}
+  RestClient.put "http://localhost:4567/#{name}", {:lat => lat, :long => long}
 end
 
 Given /^it is (\d+):(\d+)$/ do |hours, minutes|
-  res = RestClient.post "http://#{SITE}\/time", {:hours => hours, :minutes => minutes}
+  res = RestClient.post "http://localhost:4567/time", {:hours => hours, :minutes => minutes}
 end
 
 When /^I open "http:\/\/wherewhere\.is\/(.*?)"$/ do |name|
@@ -27,7 +25,7 @@ When /^I open "http:\/\/wherewhere\.is\/(.*?)"$/ do |name|
   # code is usually zero or a quirky random number.
   # I have no idea how/why this happens.
   2.times do
-    visit "http://#{SITE}\/#{name}"
+    visit "http://localhost:4567/#{name}"
   end
 end
 
