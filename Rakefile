@@ -4,9 +4,7 @@ task :default => "features:done"
 
 desc "Run test server"
 task :testserver do
-  require './lib/wherewhere'
-  require './features/support/wherewhere_test_calls'
-  WhereWhere.run!
+  exec 'rackup test.ru'
 end
 
 require "cucumber/rake/task"

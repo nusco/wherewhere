@@ -1,21 +1,30 @@
 # encoding: utf-8
 
+require 'rest_client'
+Kernel.class_eval do
+  [:GET, :POST, :PUT, :DELETE].each do |verb|
+    define_method verb do |path, *args|
+      RestClient.send verb.downcase, "http://localhost:9292#{path}", args
+    end
+  end
+end
+
 Before do
   require 'rest_client'
-  RestClient.delete "http://localhost:4567/database"
+  DELETE "/database"
 end
 
 #TODO: start/stop server before/after each test
 Given /^somebody named "(.*?)" is at ([\d\.]+)°, ([\d\.]+)°$/ do |name, lat, long|
-  RestClient.put "http://localhost:4567/#{name}", {:lat => lat, :long => long}
+  RestClient.put "http://localhost:9292/#{name}", {:lat => lat, :long => long}
 end
 
 Given /^a second later "(.*?)" is at ([\d\.]+)°, ([\d\.]+)°$/ do |name, lat, long|
-  RestClient.put "http://localhost:4567/#{name}", {:lat => lat, :long => long}
+  RestClient.put "http://localhost:9292/#{name}", {:lat => lat, :long => long}
 end
 
 Given /^it is (\d+):(\d+)$/ do |hours, minutes|
-  res = RestClient.post "http://localhost:4567/time", {:hours => hours, :minutes => minutes}
+  res = POST "/time", {:hours => hours, :minutes => minutes}
 end
 
 When /^I open "http:\/\/wherewhere\.is\/(.*?)"$/ do |name|
@@ -25,7 +34,7 @@ When /^I open "http:\/\/wherewhere\.is\/(.*?)"$/ do |name|
   # code is usually zero or a quirky random number.
   # I have no idea how/why this happens.
   2.times do
-    visit "http://localhost:4567/#{name}"
+    visit "http://localhost:9292/#{name}"
   end
 end
 
