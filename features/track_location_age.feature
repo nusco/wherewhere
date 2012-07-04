@@ -1,4 +1,4 @@
-Feature: Show location age
+Feature: Track location age
 As an observer
 I want to see how long ago a user's location was updated
 So I will not be confused by old locations
