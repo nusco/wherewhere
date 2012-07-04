@@ -1,3 +1,4 @@
+require 'bundler/setup'
 require 'sinatra'
 
 class WhereWhere < Sinatra::Base
@@ -35,12 +36,11 @@ class WhereWhere < Sinatra::Base
   end
 
   put '/:name' do
-    puts params
     name = params[:name].downcase
     data = {:name => name, :lat => params[:lat], :long => params[:long], :time => Time.now}
     existing = locations.find_one(:name => name)
     if existing
-      locations.update({:_id => existing['id']}, data)
+      locations.update({:_id => existing['_id']}, data)
     else
       locations.insert data
     end
