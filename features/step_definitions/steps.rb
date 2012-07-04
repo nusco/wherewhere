@@ -1,26 +1,16 @@
 # encoding: utf-8
 
-require 'rest_client'
-Kernel.class_eval do
-  [:GET, :POST, :PUT, :DELETE].each do |verb|
-    define_method verb do |path, *args|
-      RestClient.send verb.downcase, "http://localhost:9292#{path}", args
-    end
-  end
-end
-
 Before do
   require 'rest_client'
   DELETE "/database"
 end
 
-#TODO: start/stop server before/after each test
 Given /^somebody named "(.*?)" is at ([\d\.]+)°, ([\d\.]+)°$/ do |name, lat, long|
-  RestClient.put "http://localhost:9292/#{name}", {:lat => lat, :long => long}
+  PUT "/#{name}", {:lat => lat, :long => long}
 end
 
 Given /^a second later "(.*?)" is at ([\d\.]+)°, ([\d\.]+)°$/ do |name, lat, long|
-  RestClient.put "http://localhost:9292/#{name}", {:lat => lat, :long => long}
+  PUT "/#{name}", {:lat => lat, :long => long}
 end
 
 Given /^it is (\d+):(\d+)$/ do |hours, minutes|

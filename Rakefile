@@ -4,7 +4,7 @@ task :default => "features:done"
 
 desc "Run test server"
 task :testserver do
-  exec 'rackup test.ru'
+  exec 'rackup configtest.ru'
 end
 
 require "cucumber/rake/task"

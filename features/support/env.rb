@@ -1,3 +1,5 @@
+require 'bundler/setup'
+
 require 'capybara/cucumber'
 require 'capybara-webkit'
 # this silences the Webkit JS warnings by redirecting them to nil:
@@ -8,3 +10,13 @@ Capybara.default_driver = :webkit
 
 require './lib/wherewhere'
 Capybara.app = WhereWhere.new
+
+require 'rest_client'
+Kernel.class_eval do
+  [:GET, :POST, :PUT, :DELETE].each do |verb|
+    define_method verb do |path, *args|
+      RestClient.send verb.downcase, "http://localhost:9292#{path}", *args
+    end
+  end
+end
+

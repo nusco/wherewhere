@@ -35,6 +35,7 @@ class WhereWhere < Sinatra::Base
   end
 
   put '/:name' do
+    puts params
     name = params[:name].downcase
     data = {:name => name, :lat => params[:lat], :long => params[:long], :time => Time.now}
     existing = locations.find_one(:name => name)
