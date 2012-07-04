@@ -24,6 +24,11 @@ class WhereWhere < Sinatra::Base
     def four_o_four
       [404, {}, "WhereWhere doesn't know where #{params[:name].downcase} is"]
     end
+
+    def intro_string(minutes, name)
+      return "#{name} is here:" if minutes < 5
+      "#{minutes} minutes ago, #{name} was here:"
+    end  
   end
   
   get '/:name' do

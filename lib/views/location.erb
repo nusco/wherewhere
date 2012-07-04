@@ -3,11 +3,7 @@
   <head></head>
   <title>WhereWhere is <%= data['name'] %>?</title>
   <body>
-    <% if age_mins < 5 %>
-      <h3><%= data['name'] %> is here:</h3>
-    <% else %>
-      <h3><%= age_mins %> minutes ago, <%= data['name'] %> was here:</h3>
-    <% end %>
+    <h3><%= intro_string(age_mins, data['name']) %></h3>
     <iframe width="640" height="480" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=<%= data['lat'] %>,<%= data['long'] %>&amp;ie=UTF8&amp;t=m&amp;z=14&amp;output=embed"></iframe>
   </body>
 </html>
