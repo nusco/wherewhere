@@ -1,7 +1,8 @@
 # encoding: utf-8
 
+require 'rest_client'
+
 Before do
-  require 'rest_client'
   DELETE "/database"
 end
 

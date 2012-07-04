@@ -9,7 +9,6 @@ end
 
 require "cucumber/rake/task"
 namespace :features do
-
   Cucumber::Rake::Task.new(:done, "Run regression tests") do |task|
     task.cucumber_opts = ["--tags ~@backlog"]
   end

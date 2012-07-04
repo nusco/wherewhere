@@ -8,9 +8,6 @@ Capybara.register_driver :webkit do |app|
 end
 Capybara.default_driver = :webkit
 
-require './lib/wherewhere'
-Capybara.app = WhereWhere.new
-
 require 'rest_client'
 Kernel.class_eval do
   [:GET, :POST, :PUT, :DELETE].each do |verb|
@@ -19,4 +16,3 @@ Kernel.class_eval do
     end
   end
 end
-

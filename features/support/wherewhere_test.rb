@@ -1,3 +1,5 @@
+require './lib/wherewhere'
+
 WhereWhere.class_eval do
   delete '/database' do
     locations.remove
